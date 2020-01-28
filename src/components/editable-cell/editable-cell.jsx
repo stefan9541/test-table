@@ -2,23 +2,16 @@ import React from "react";
 import { Form, InputNumber, Input } from "antd";
 import { EditableContextConsumer } from "../../context/form-context";
 
-class EditableCell extends React.Component {
-  getInput = () => {
-    if (this.props.inputtype === "number") {
+const EditableCell = props => {
+  const getInput = () => {
+    if (props.inputtype === "number") {
       return <InputNumber />;
     }
     return <Input />;
   };
 
-  renderCell = ({ getFieldDecorator }) => {
-    const {
-      editing,
-      dataIndex,
-      title,
-      record,
-      children,
-      ...restProps
-    } = this.props;
+  const renderCell = ({ getFieldDecorator }) => {
+    const { editing, dataIndex, title, record, children, ...restProps } = props;
     return (
       <td {...restProps}>
         {editing ? (
@@ -31,7 +24,7 @@ class EditableCell extends React.Component {
                 }
               ],
               initialValue: record[dataIndex]
-            })(this.getInput())}
+            })(getInput())}
           </Form.Item>
         ) : (
           children
@@ -40,9 +33,7 @@ class EditableCell extends React.Component {
     );
   };
 
-  render() {
-    return <EditableContextConsumer>{this.renderCell}</EditableContextConsumer>;
-  }
-}
+  return <EditableContextConsumer>{renderCell}</EditableContextConsumer>;
+};
 
 export default EditableCell;

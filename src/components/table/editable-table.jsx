@@ -83,7 +83,6 @@ class EditableTable extends React.Component {
   save(id) {
     const { form, updateArticle } = this.props;
     form.validateFields((error, row) => {
-      console.log(row);
       if (error) {
         return;
       }
